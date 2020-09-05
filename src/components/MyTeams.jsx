@@ -10,7 +10,7 @@ class MyTeams extends React.Component {
       teamsObject : [{name:"FT", description:"Fiver5 Team"}, {name:"TF", description:"Team Fantasy" }, {name:"Zerks", description:"All Zerks"}]
     }
     this.targetPage = "/AddEditTeams";
-    this.teamObject = {name:"TEAM TO BE EMPTED", description:"text description", url:"www.team.com", type: true, tags: ["best","crazy"], formation:"3-4-3", squad:["James","Alex","Harry"] };
+    this.teamObject = {name:"TEAM TO BE EMPTED", description:"text description", url:"www.team.com", type: true, tags: ["best","crazy"], formation:[3,4,3], squad:["James","Alex","Harry"] };
     this.teamsObject = [{name:"FT", description:"Fiver5 Team"}, {name:"TF", description:"Team Fantasy" }, {name:"Zerks", description:"All Zerks"}]
     this.filterProperty = "name";
     this.filterByDescription =  this.filterByDescription.bind(this);
@@ -44,7 +44,6 @@ class MyTeams extends React.Component {
     }
     return 0;
   }
-  
 
   render(){
     const listItems = this.teamsObject.map((d) => <div key={d.name}><div>{d.name}</div><div>{d.description}</div><ListButtons name={d.name}></ListButtons></div>);

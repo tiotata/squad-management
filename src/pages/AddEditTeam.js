@@ -6,7 +6,7 @@ import AddEditComponent from '../components/AddEditComponent';
 
 const AddEditTeam = (props) => {
 
-  let teamData = {name:"test", description:"text description", url:"www.team.com", type: true, tags: ["best","crazy"], formation:"3-4-3", squad:["James","Alex","Harry"] };
+  let teamData = {name:"test", description:"text description", url:"www.team.com", type: true, tags: ["best","crazy"], formation:[5,2,2,1], squad:["James","Alex","Harry"] };
    if (props.location.teamData)
       teamData = props.location.teamData;
     return (

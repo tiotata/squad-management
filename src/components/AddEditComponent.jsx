@@ -10,7 +10,7 @@ class AddEditComponent extends React.Component {
     this.state = {
       teamsObject: [{ name: "FT", description: "Fiver5 Team" }, { name: "TF", description: "Team Fantasy" }, { name: "Zerks", description: "All Zerks" }]
     }
-    this.teamData = { name: "test", description: "text description", url: "www.team.com", type: true, tags: ["best", "crazy"], formation: "3-4-3", squad: ["James", "Alex", "Harry"] };
+    this.teamData = { name: "test", description: "text description", url: "www.team.com", type: true, tags: ["best", "crazy"], formation: [3,4,3], squad: ["James", "Alex", "Harry"] };
     if (props.teamData)
       this.teamData = props.teamData;
 

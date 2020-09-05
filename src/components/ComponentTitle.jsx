@@ -15,10 +15,10 @@ class AppHeader extends React.Component {
     }
 
     return (
-      <>
-        <h1>{this.props.title}</h1>
+      <div className="titleContainer">
+        <h1 className="title">{this.props.title}</h1>
         {button}
-      </>
+      </div>
     );
   }
 }

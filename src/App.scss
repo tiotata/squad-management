@@ -6,13 +6,13 @@ $purple: rgb(150,28,103);
   text-align: center;
 }
 
-.home, .createEditTeam, .teamInformation {
+.home, .createEditTeam, .teamInformation, .dragDropArea {
   display: flex;
   background-color: rgba(0, 0, 255, 0.1);
   width: 100%;
 }
 
-.home div, .createEditTeam div {
+.home > div, .createEditTeam > div {
   background-color: white;
   padding:0.8em;
   border-radius: 0.5em;
@@ -31,6 +31,27 @@ $purple: rgb(150,28,103);
   padding-left:5%;
 }
 
+
+.titleContainer{
+  display:flex;
+  padding:0;
+  padding-bottom:0.6em;
+  border-bottom: 1px solid rgba(0, 0, 255, 0.1);
+}
+
+.title{
+  padding:0;
+  margin:0;
+}
+
+.teamInformation, .dragDropArea {
+  background-color:white;
+  border-radius: 0.5em;
+  display:flex;
+  justify-content: space-around;
+  margin-bottom:2em;
+}
+
 .teamInformation div * {
   width:100%;
   display:flex;
@@ -39,9 +60,101 @@ $purple: rgb(150,28,103);
 }
 
 .teamInformation div {
-  margin-top:0;
+  text-align: left;
 }
 
 .teamInformation div span {
  margin-top:1em;
 }
+
+.dragDropArea > div {
+
+}
+
+.dragDropArea input {
+  margin:3em;
+  margin-bottom:1em;
+}
+
+.soccerField {
+  background: -webkit-linear-gradient(240deg, $pink, $purple);
+  display:flex;
+  flex-flow: column;
+}
+
+.formationLine {
+  width:100%;
+  display:flex;
+  justify-content: space-around;
+  padding-top: 1.5em;
+  padding-bottom: 1.5em;
+}
+
+.playerName {
+  text-align: center;
+  background-color:#CE9BBE;
+  border-radius: 50%;
+  width:4em;
+  height:3.1em;
+  margin: 0.6em;
+  color: white;
+  padding-top:0.9em;
+
+}
+
+.playerName span {
+  font-size: 1.5em;
+  margin-top:2em;
+}
+
+.playerItem {
+  background: -webkit-linear-gradient(bottom, rgba(0, 0, 255, 0.1), white);
+  border-radius: 2px;
+  border: 0.2em dashed rgba(0, 0, 255, 0.1);
+  display:flex;
+  padding:1em;
+  margin:0.1em;
+}
+
+.playerItem > div {
+  display: flex;
+  flex-flow: wrap;
+}
+
+.playerItem > div > span {
+  margin:0.3em;
+  font-size:0.8em;
+  color: $pink;
+  font-weight: bold;
+}
+
+.playerItem > div:first-of-type {
+  width:75%;
+}
+
+.playerItem > div:nth-child(2){
+  width: 25%;
+}
+
+.playerItem > div:first-of-type > .searchLabel {
+  width:25%;
+  color: black;
+  text-align: left;
+}
+
+.playerItem > div:nth-child(2) > .searchLabel {
+  width:20%;
+  color: black;
+  text-align: left;
+}
+
+.playerItem >  div:first-of-type > span {
+  width:70%;
+  text-align: left;
+}
+
+.playerItem >  div:nth-child(2) > span {
+  width:40%;
+  text-align: left;
+}
+
