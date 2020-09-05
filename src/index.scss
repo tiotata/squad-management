@@ -15,28 +15,3 @@ code {
     monospace;
 }
 
-
-.home {
-  display: flex;
-  background-color: rgba(0, 0, 255, 0.1);
-  width: 100%;
-}
-
-.home div {
-  background-color: white;
-  padding:0.8em;
-  border-radius: 0.5em;
-  margin: 1em;
-  width:100%;
-  min-width:200px;
-}
-
-.header {
-  background: -webkit-linear-gradient(left, $pink, $purple);
-  font-size:1.8em;
-  color: white;
-  height:1.8em;
-  text-align: left;
-  padding-top:0.3em;
-  padding-left:5%;
-}

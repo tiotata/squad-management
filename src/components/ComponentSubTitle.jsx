@@ -1,6 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-
 
 class AppHeader extends React.Component {
   render() {
@@ -8,7 +6,7 @@ class AppHeader extends React.Component {
 
     return (
       <>
-        <h1>{this.props.title}</h1>
+        <h1 style={{color: "gray", fontSize: "1.2em"}}>{this.props.title}</h1>
         {button}
       </>
     );
