@@ -12,7 +12,9 @@ class TeamInformation extends React.Component {
     this.type = "";
     this.tags = "";
 
-    if( props.teamData.id ) {
+    this.urlTest = /\(?(?:(http|https|ftp):\/\/)?(?:((?:[^\W\s]|\.|-|[:]{1})+)@{1})?((?:www.)?(?:[^\W\s]|\.|-)+[\.][^\W\s]{2,4}|localhost(?=\/)|\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})(?::(\d*))?([\/]?[^\s\?]*[\/]{1})*(?:\/?([^\s\n\?\[\]\{\}\#]*(?:(?=\.)){1}|[^\s\n\?\[\]\{\}\.\#]*)?([\.]{1}[^\s\?\#]*)?)?(?:\?{1}([^\s\n\#\[\]]*))?([\#][^\s\n]*)?\)?/
+
+    if (props.teamData.id) {
 
       this.name = props.teamData.name;
       this.description = props.teamData.description;
@@ -23,8 +25,25 @@ class TeamInformation extends React.Component {
 
   }
 
+  removeInvalid(str){
+    document.getElementById(str).classList.remove('invalidField');
+  }
+
   validate() {
-    console.log(this)
+    let wrongFields = [];
+    if (!this.urlTest.test(this.url)) {
+      wrongFields.push("Team Website");
+      document.getElementById("urlField").classList.add('invalidField');
+    }
+    if(this.name == "") {
+      wrongFields.push("Team Name");
+      document.getElementById("nameField").classList.add('invalidField');
+    }
+
+    if(wrongFields.length > 0) {
+      window.alert("The following fields are empty or wrong: " + wrongFields);
+      return false;
+    }
     return true;
   }
 
@@ -45,15 +64,15 @@ class TeamInformation extends React.Component {
         <div className="teamInformation">
           <div>
             <span>Team Name</span>
-            <input type="text" placeholder={this.name} onChange={event => this.name = event.target.value}></input>
+            <input type="text" id="nameField" placeholder={this.name} onChange={event =>{ this.name = event.target.value; this.removeInvalid('nameField');}}></input>
             <span>Description</span>
             <textarea type="text" rows="5" placeholder={this.description} onChange={event => this.description = event.target.value} ></textarea>
           </div>
           <div>
             <span>Team Website</span>
-            <input type="text" placeholder={this.url} onChange={event => this.url = event.target.value} ></input>
+            <input type="text" id="urlField" placeholder={this.url} onChange={event => {this.url = event.target.value; this.removeInvalid('urlField');}} ></input>
             <span>Team Type</span>
-            <input type="text" placeholder={this.type}></input>
+            <input type="text" id="typeField"placeholder={this.type}></input>
             <span>Tags</span>
             <div id="tagSelector" height="3em">{this.tags.toString()}</div>
           </div>

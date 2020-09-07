@@ -82,6 +82,15 @@ html, body, #root, .home {
   text-decoration: none !important;
 }
 
+.saveButton {
+  color:white;
+  background-color: $purple;
+  margin-left:6.3em;
+  width:26em;
+  padding-top:0.5em;
+  padding-bottom:0.5em;
+}
+
 input, textarea{
   margin-top:0.4em;
   outline: 1px solid rgba(122, 120, 120, 0.5);
@@ -93,6 +102,10 @@ input:focus, textarea:focus {
  outline: $pink auto 1px;
 }
 
+.invalidField {
+  outline: red auto 2px;
+}
+
 .teamInformation, .dragDropArea {
   background-color:white;
   border-radius: 0.5em;
@@ -101,6 +114,12 @@ input:focus, textarea:focus {
   margin-bottom:2em;
 }
 
+.availablePlayers {
+  height: 40em;
+  display: flex;
+  flex-direction: column;
+  overflow: overlay;
+}
 .teamInformation div * {
   width:100%;
   display:flex;
@@ -110,16 +129,25 @@ input:focus, textarea:focus {
 
 .teamInformation div {
   text-align: left;
-  width: 30%;
+  width: 35%;
 }
 
-.teamInformation div span {
+.teamInformation div span, .dragDropArea div span {
  margin-top:1em;
  font-weight: bold;
+ left: 0;
 }
 
 .dragDropArea > div {
+  text-align: left;;
   display:block;
+ margin-bottom:3em;
+}
+
+.dragDropArea div select {
+  margin-bottom:1em;
+  margin-left: 1em;
+
 }
 
 .dragDropArea input {
