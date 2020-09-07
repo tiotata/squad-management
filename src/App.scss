@@ -1,11 +1,21 @@
 $pink: rgb(188, 15,81);
 $purple: rgb(150,28,103);
 
+a,
+a:link,
+a:visited,
+a:hover,
+a:active{
+text-decoration: none;
+}
 
 .App {
   text-align: center;
+  height:90%;
 }
-
+html, body, #root, .home {
+  height:100%;
+}
 .home, .createEditTeam, .teamInformation, .dragDropArea {
   display: flex;
   background-color: rgba(0, 0, 255, 0.1);
@@ -21,6 +31,10 @@ $purple: rgb(150,28,103);
   min-width:200px;
 }
 
+.home > div:first-of-type {
+  height:100%;
+}
+
 .header {
   background: -webkit-linear-gradient(left, $pink, $purple);
   font-size:1.8em;
@@ -31,11 +45,11 @@ $purple: rgb(150,28,103);
   padding-left:5%;
 }
 
-
 .titleContainer{
   display:flex;
+  justify-content: space-between;
   padding:0;
-  padding-bottom:0.6em;
+  padding-bottom:1em;
   border-bottom: 1px solid rgba(0, 0, 255, 0.1);
 }
 
@@ -44,11 +58,46 @@ $purple: rgb(150,28,103);
   margin:0;
 }
 
+.subtTitle {
+  color: gray;
+  font-size: 11em;
+  
+}
+
+.addTeamButton {
+  background: -webkit-linear-gradient(240deg, $pink, $purple);
+  color:white;
+  display: flex;
+  width: 3em;
+  height: 3em;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.7em;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.addTeamButton > span {
+  font-size:1.7em;
+  margin-top:-0.1em;
+  text-decoration: none !important;
+}
+
+input, textarea{
+  margin-top:0.4em;
+  outline: 1px solid rgba(122, 120, 120, 0.5);
+  border:none;
+  resize:none;
+}
+
+input:focus, textarea:focus {
+ outline: $pink auto 1px;
+}
+
 .teamInformation, .dragDropArea {
   background-color:white;
   border-radius: 0.5em;
   display:flex;
-  justify-content: space-around;
+  justify-content: space-evenly;
   margin-bottom:2em;
 }
 
@@ -61,10 +110,12 @@ $purple: rgb(150,28,103);
 
 .teamInformation div {
   text-align: left;
+  width: 30%;
 }
 
 .teamInformation div span {
  margin-top:1em;
+ font-weight: bold;
 }
 
 .dragDropArea > div {
@@ -156,5 +207,37 @@ $purple: rgb(150,28,103);
 .playerItem >  div:nth-child(2) > span {
   width:40%;
   text-align: left;
+}
+
+.listColumns, .listLine {
+  display:flex;
+  margin-top: 2em;
+  font-weight: bold;
+}
+
+.listColumns > div, .listLine > div {
+  display:flex;
+  text-align: right;
+  margin-left:1em;
+  justify-content: space-between;
+  width:70%;
+}
+
+.listColumns > div:first-of-type {
+  width:30%;
+  border-right: 1px solid rgba(0, 0, 255, 0.1);
+}
+
+.listLine > div:first-of-type {
+  width:33%;
+}
+
+.filterIcon {
+  background-image: url("https://upload.wikimedia.org/wikipedia/commons/f/f5/Sort_both_small.svg");
+  width:1em;
+  height:1em;
+  background-repeat: no-repeat;
+  right:0;
+  margin-top:0.2em
 }
 

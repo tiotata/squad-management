@@ -7,11 +7,9 @@ class AppHeader extends React.Component {
     let button = "";
 
     if (this.props.targetPage) {
-      button = <Link to={{
-        pathname: this.props.targetPage,
-        teamData: this.props.targetData
-        
-      }} > + </Link>
+      button = <Link  to={{
+        pathname: this.props.targetPage
+      }} ><div className="addTeamButton" ><span> + </span></div></Link>
     }
 
     return (

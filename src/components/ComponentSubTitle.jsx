@@ -6,7 +6,7 @@ class AppHeader extends React.Component {
 
     return (
       <>
-        <h1 style={{color: "gray", fontSize: "1.2em"}}>{this.props.title}</h1>
+        <h1 className="subTitle" style={{color: "gray", fontSize: "1.2em"}}>{this.props.title}</h1>
         {button}
       </>
     );

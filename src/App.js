@@ -7,6 +7,9 @@ import AddEditTeams from './pages/AddEditTeam';
 import './App.scss';
 
 function App() {
+  let teams = [];
+  localStorage.setItem("savedTeams", JSON.stringify(teams) );
+  localStorage.setItem("lastTeamIndex", 0);
   return (
     <div className="App">
       <AppHeader></AppHeader>

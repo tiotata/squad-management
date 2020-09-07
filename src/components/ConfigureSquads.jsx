@@ -5,13 +5,22 @@ import ComponentSubTitle from './ComponentSubTitle';
 class AppHeader extends React.Component {
   constructor(props) {
     super(props);
-    this.formation = props.formation;
+
+    if (props.formation) {
+      this.formation = props.formation;
+    }
+    else {
+      this.formation = [3, 4, 2]
+    }
+
+    this.formationOptions = [[3,2,2,3] , [3,2,3,1] , [3,4,3] , [3,5,2] , [4,2,3,1] , [4,3,1,1] , [4,3,2], [4,4,2], [4,5,1] , [5,4,1]];
     this.soccerFormationLines = [];
     this.slotKey = 0;
     this.playerListContainers = [];
     this.squadConfig = []
-    if (props.squadConfig) {
-      this.squadConfig = props.squadConfig;
+    
+    if (props.squad) {
+      this.squadConfig = props.squad;
     }
     this.state = {
       playerListContainers: [],
@@ -39,9 +48,12 @@ class AppHeader extends React.Component {
 
     //finally, we add the goal Keeper!
     this.soccerFormationDiv.push(<div key={this.soccerFormationLines.length} className="formationLine"><div id={"player" + this.slotKey} onDrop={event => this.drop(event)} onDragOver={event => this.allowDrop(event)} className="playerName"><span draggable="false">+</span></div></div>)
-    this.populateSquadSlots();
+  
   }
 
+  componentDidMount() {
+    this.populateSquadSlots();
+  }
 
   drop(ev) {
     ev.preventDefault();
@@ -65,7 +77,7 @@ class AppHeader extends React.Component {
     return firstNameChar + lastNameChar;
   }
 
-  getSquatConfig() {
+  getSquadConfig() {
     return this.squadConfig;
   }
 
@@ -92,12 +104,12 @@ class AppHeader extends React.Component {
     });
   }
 
-  populateSquadSlots(){
+  populateSquadSlots() {
     let slot;
     let player;
-    for ( let i = 0; i < this.squadConfig.length; i++){
+    for (let i = 0; i < this.squadConfig.length; i++) {
       player = this.squadConfig[i]
-      slot =  document.getElementById(player.slot)
+      slot = document.getElementById(player.slot)
       slot.innerHTML = player.initials;
     }
   }
@@ -148,12 +160,16 @@ class AppHeader extends React.Component {
   }
 
   render() {
+    const listOptions =  this.formationOptions.map((d) => <option value={d} selected >{d} </option>);
     return (
       <>
         <ComponentSubTitle title={"Configure Squad"}></ComponentSubTitle>
         <div className="dragDropArea">
           <div>
             <span>Formation</span>
+            <select id="cars" name="cars">
+              {listOptions}
+            </select>
             <input type="text" placeholder={this.formation}></input>
             <div className="soccerField">
               {this.soccerFormationDiv}

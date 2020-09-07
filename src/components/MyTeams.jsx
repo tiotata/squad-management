@@ -7,11 +7,10 @@ class MyTeams extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      teamsObject : [{name:"FT", description:"Fiver5 Team"}, {name:"TF", description:"Team Fantasy" }, {name:"Zerks", description:"All Zerks"}]
+     
     }
+    this.teams = JSON.parse(localStorage.getItem("savedTeams"));
     this.targetPage = "/AddEditTeams";
-    this.teamObject = {name:"TEAM TO BE EMPTED", description:"text description", url:"www.team.com", type: true, tags: ["best","crazy"], formation:[3,4,3], squad:["James","Alex","Harry"] };
-    this.teamsObject = [{name:"FT", description:"Fiver5 Team"}, {name:"TF", description:"Team Fantasy" }, {name:"Zerks", description:"All Zerks"}]
     this.filterProperty = "name";
     this.filterByDescription =  this.filterByDescription.bind(this);
     this.filterByName = this.filterByName.bind(this);
@@ -21,17 +20,17 @@ class MyTeams extends React.Component {
 
   filterByName(){
     this.filterProperty = "name";
-    this.teamsObject.sort(this.compare);
+    this.teams.sort(this.compare);
       this.setState({
-      teamsObject: this.teamsObject,
+        teams: this.teams,
     });
   }
 
   filterByDescription(){
     this.filterProperty = "description";
-    this.teamsObject.sort(this.compare);
+    this.teams.sort(this.compare);
     this.setState({
-      teamsObject: this.teamsObject,
+      teams: this.teams,
     });
   }
 
@@ -46,11 +45,12 @@ class MyTeams extends React.Component {
   }
 
   render(){
-    const listItems = this.teamsObject.map((d) => <div key={d.name}><div>{d.name}</div><div>{d.description}</div><ListButtons name={d.name}></ListButtons></div>);
+    const listItems = this.teams.map((d) => <div className="listLine" key={d.name}><div>{d.name}</div><div>{d.description}</div><ListButtons teamId={d.id}></ListButtons></div>);
     return (
       <div>
-        <ComponentTitle title={"My Teams"} targetPage={this.targetPage} targetData={this.teamObject}></ComponentTitle>
-        <div onClick={this.filterByName}>Name</div><div onClick={this.filterByDescription}>Description</div>
+        <ComponentTitle title={"My Teams"} targetPage={this.targetPage}></ComponentTitle>
+        <div className="listColumns">
+        <div onClick={this.filterByName}>Name<div className="filterIcon"></div></div><div onClick={this.filterByDescription}>Description<div className="filterIcon"></div></div></div>
         {listItems}        
       </div>
     );

@@ -6,16 +6,36 @@ class TeamInformation extends React.Component {
   constructor(props) {
     super(props);
 
-    this.name = props.teamData.name;
-    this.description = props.teamData.description;
-    this.url = props.teamData.url;
-    this.type = props.teamData.type.toString();
-    this.tags = props.teamData.tags.toString();
+    this.name = "";
+    this.description = "";
+    this.url = "";
+    this.type = "";
+    this.tags = "";
+
+    if( props.teamData.id ) {
+
+      this.name = props.teamData.name;
+      this.description = props.teamData.description;
+      this.url = props.teamData.url;
+      this.type = props.teamData.type.toString();
+      this.tags = props.teamData.tags.toString();
+    }
+
   }
 
   validate() {
     console.log(this)
     return true;
+  }
+
+  getInformation() {
+    let info = {};
+    info.name = this.name;
+    info.description = this.description;
+    info.url = this.url;
+    info.type = this.type;
+    info.tags = this.tags;
+    return info;
   }
 
   render() {
