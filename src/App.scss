@@ -1,6 +1,6 @@
 $pink: rgb(188, 15,81);
 $purple: rgb(150,28,103);
-
+$mobile-width: 900px;
 a,
 a:link,
 a:visited,
@@ -20,6 +20,7 @@ html, body, #root, .home {
   display: flex;
   background-color: rgba(0, 0, 255, 0.1);
   width: 100%;
+  flex-flow: wrap;
 }
 
 .home > div, .createEditTeam > div {
@@ -27,10 +28,25 @@ html, body, #root, .home {
   padding:0.8em;
   border-radius: 0.5em;
   margin: 1em;
-  width:100%;
-  min-width:200px;
+  
 }
 
+.home > div {
+  width:43.5%;
+
+  @media only screen and (max-width: $mobile-width) {
+  
+      width:100%;
+      max-height: 30em;  
+    
+  }  
+  min-width:10em;
+
+}
+
+.createEditTeam > div {
+  width:100%;
+}
 .home > div:first-of-type {
   height:100%;
 }
@@ -85,10 +101,24 @@ html, body, #root, .home {
 .saveButton {
   color:white;
   background-color: $purple;
-  margin-left:6.3em;
-  width:26em;
+  width:38%;
+  @media only screen and (max-width: $mobile-width) {
+    width:100%;
+  }
   padding-top:0.5em;
   padding-bottom:0.5em;
+}
+
+.margin-right {
+  width:38%;
+  @media only screen and (max-width: $mobile-width) {
+   display:none;
+  }
+}
+
+.saveButtonDiv {
+  display:flex;
+  justify-content: space-evenly;
 }
 
 input, textarea{
@@ -113,6 +143,8 @@ input:focus, textarea:focus {
   justify-content: space-evenly;
   margin-bottom:2em;
 }
+
+
 
 .availablePlayers {
   height: 40em;
@@ -142,6 +174,10 @@ input:focus, textarea:focus {
   text-align: left;;
   display:block;
  margin-bottom:3em;
+ width:38%;
+ min-width: 411px;
+ max-width: 490px;
+ height:40em;
 }
 
 .dragDropArea div select {
@@ -159,6 +195,7 @@ input:focus, textarea:focus {
   background: -webkit-linear-gradient(240deg, $pink, $purple);
   display:flex;
   flex-flow: column;
+  height:100%;
 }
 
 .formationLine {
@@ -269,3 +306,97 @@ input:focus, textarea:focus {
   margin-top:0.2em
 }
 
+.topFiveRank {
+  display:flex;
+  align-content: space-between;
+}
+
+.topFiveRank > div {
+  width:45%;
+  margin:2.5%;
+}
+
+.rankTitle {
+  margin-bottom: 0.5em;
+  text-align: left;
+  font-weight: bold;
+}
+
+.rankLine {
+  display: flex;
+  justify-content: space-between;
+  border:1px solid rgba(0, 0, 255, 0.1);
+  padding:0.5em;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.rankLine > span:first-of-type {
+  font-weight: normal;
+}
+
+
+.listButtons {
+  display:flex;
+  justify-content: space-around;
+  width:20% !important;
+}
+
+.editButton{
+  background: url('https://upload.wikimedia.org/wikipedia/commons/a/ac/Black_pencil.svg')
+}
+
+.shareButton{
+  background: url('http://pngimg.com/uploads/share/share_PNG45.png' )
+}
+
+.removeButton{
+  background: url("https://www.pikpng.com/pngl/m/159-1591301_pc-icon-to-delete-comments-delete-icon-svg.png");
+}
+
+.editButton, .shareButton, .removeButton {
+  width:0.8em;
+  height:0.8em;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.pickedPlayers {
+  background:-webkit-linear-gradient(100deg, $purple, $pink);
+  height:15em;
+  margin-top:2em;
+  font-weight: bold;
+  color:white;
+  padding-top:2em;
+  font-size: 80%;
+  display:flex;
+  justify-content: space-around;
+  flex-flow: wrap;
+}
+
+.playerPhoto {
+  text-align: center;
+  background:#CE9BBE;
+  background-size: cover;
+  background-position: 3px 3px;
+  border:2px dashed #CE9BBE;
+  border-radius: 50%;
+  width:6em;
+  height:3.8em;
+  margin: 0.6em;
+  color: white;
+  padding-top:2.2em;
+  background-clip: padding-box;
+  background-origin: content-box, padding-box;
+  
+}
+
+.rankSoccerLine {
+  display:flex;
+  margin-top:0.8em;
+}
+
+.percentage {
+  margin-top:0.8em;
+  display:block; 
+}

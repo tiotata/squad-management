@@ -11,7 +11,7 @@ class AddEditComponent extends React.Component {
   state = {
     toHome: false,
   }
-
+    
   constructor(props, refs) {
    
     super(props);
@@ -28,12 +28,13 @@ class AddEditComponent extends React.Component {
   }
 
   saveTeam() {
-    
+  
     if (this.teamInformation.current.validate() != true ||
       this.squadConfig.current.validate() != true) {
     } else {
       let teamInfo = this.teamInformation.current.getInformation();
       teamInfo.squad = this.squadConfig.current.getSquadConfig();
+      teamInfo.formation = this.squadConfig.current.getFormation();
       let savedTeams = JSON.parse(localStorage.getItem("savedTeams"));
       let savedTeamId = savedTeams.findIndex(t => parseInt(t.id) === parseInt(this.teamData.id));
       if (savedTeamId > -1 ) {
@@ -62,7 +63,10 @@ class AddEditComponent extends React.Component {
         <ComponentTitle title={"Add/Edit Team"}></ComponentTitle>
         <TeamInformation ref={this.teamInformation} teamData={this.teamData} ></TeamInformation>
         <ConfigureSquads ref={this.squadConfig} formation={this.teamData.formation} squad={this.teamData.squad}></ConfigureSquads>
-        <div onClick={this.saveTeam.bind(this)} className="saveButton"> Save </div>
+        <div className="saveButtonDiv">
+          <div onClick={this.saveTeam.bind(this)} className="saveButton"> Save </div>
+          <div className="margin-right"></div>
+        </div>
       </div>
     );
   }

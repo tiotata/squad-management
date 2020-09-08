@@ -8,16 +8,16 @@ class AppHeader extends React.Component {
 
     this.lowestvgList = [];
     this.getFiveLowestOrHighestAverageAgeTeam("lowest").map(function (item) {
-      this.lowestvgList.push(<div className="rankLine"><span className="teamNameTop">{item.name}</span><span>{item.averageAge}</span></div>)
+      this.lowestvgList.push(<div className="rankLine"><span className="teamNameTop">{item.name}</span><span>{Math.floor(item.averageAge)}</span></div>)
     }, this);
 
     this.highestAvgList = [];
     this.getFiveLowestOrHighestAverageAgeTeam("highest").map(function (item) {
-      this.highestAvgList.push(<div className="rankLine"><span className="teamNameTop">{item.name}</span><span>{item.averageAge}</span></div>)
+      this.highestAvgList.push(<div className="rankLine"><span className="teamNameTop">{item.name}</span><span>{Math.floor(item.averageAge)}</span></div>)
     }, this);
 
-    
-    this.mostPickedPlayer = this.getMostOrLessPickedPlayer("most").initials;
+    this.mostPickedPlayer = this.getMostOrLessPickedPlayer("most");
+    this.lessPickedPlayer = this.getMostOrLessPickedPlayer("less");
 
   }
 
@@ -35,9 +35,9 @@ class AppHeader extends React.Component {
       team.averageAge = me.getTeamAverageAge(team);
     });
     let orderedTeams;
-    if(str=="highest") {
+    if (str == "highest") {
       orderedTeams = this.savedTeams.sort(this.compareReverse);
-    } else if ( str == "lowest") {
+    } else if (str == "lowest") {
       orderedTeams = this.savedTeams.sort(this.compare);
     }
     let resultArray = [];
@@ -88,38 +88,59 @@ class AppHeader extends React.Component {
         map[allPlayersIds[i]] = 1;
       } else {
         ++map[allPlayersIds[i]];
-        if(str == "most") {
+        if (str == "most") {
           if (map[allPlayersIds[i]] > map[mostFrequentID]) {
             mostFrequentID = allPlayersIds[i];
           }
-        } else if (str == "less"){
+        } else if (str == "less") {
           if (map[allPlayersIds[i]] < map[mostFrequentID]) {
             mostFrequentID = allPlayersIds[i];
           }
         }
       }
     }
-    debugger;
+
+    allPlayers[mostFrequentID].pickPercentage = Math.floor(map[mostFrequentID] / this.savedTeams.length * 100);
     return allPlayers[mostFrequentID];
-  }
-
-  getLessPickedPlayer() {
-
   }
 
   render() {
     return (
-      <div>
-        <ComponentTitle title={"Top 5"} ></ComponentTitle>
-        <div className="topFiveRank">
-          <div className="rankColumn">
-            {this.highestAvgList}
-          </div>
-          <div className="rankColumn">
-            {this.lowestvgList}
+      <div >
+        <div className="topFive">
+          <ComponentTitle title={"Top 5"} ></ComponentTitle>
+          <div className="topFiveRank">
+            <div>
+              <div class="rankTitle">Highest avg age</div>
+              <div className="rankColumn">
+                {this.highestAvgList}
+              </div>
+            </div>
+            <div>
+              <div class="rankTitle">Lowest avg age</div>
+              <div className="rankColumn">
+                {this.lowestvgList}
+              </div>
+            </div>
           </div>
         </div>
-          player PICKED {this.mostPickedPlayer}
+        <div className="pickedPlayers">
+
+          <div className="rankColumn">
+            <span>Most Picked Player</span>
+            <div className="rankSoccerLine">
+              <div className="playerPhoto">{this.mostPickedPlayer.initials}</div>
+              <span className="percentage">{this.mostPickedPlayer.pickPercentage}%</span>
+            </div>
+          </div>
+          <div className="rankColumn">
+            <span>Less Picked Player</span>
+            <div className="rankSoccerLine">
+              <div className="playerPhoto">{this.lessPickedPlayer.initials}</div>
+              <span className="percentage">{this.lessPickedPlayer.pickPercentage}%</span>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

@@ -6,14 +6,14 @@ class ListButtons extends React.Component {
     let teamId = this.props.teamId;
 
     return (
-      <>
-        <img id="remove" />
-        <img id="shareTeam" />
+      <div className="listButtons" >
+        <div className="removeButton"></div>
+        <div className="shareButton" ></div>
         <Link to={{
           pathname: "/AddEditTeams",
           teamId: teamId
-        }} > Edit </Link>
-      </>
+        }} > <div className="editButton"> </div> </Link>
+      </div>
     );
   }
 }

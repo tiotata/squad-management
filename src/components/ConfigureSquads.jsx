@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import ReactDOM from 'react-dom'
+
 import ComponentSubTitle from './ComponentSubTitle';
 
 
@@ -14,15 +16,16 @@ class AppHeader extends React.Component {
     if (props.formation) {
       this.formation = props.formation;
     }
-    else {
-      this.formation = [3, 4, 2] //default formation
-    }
+
     this.soccerFormationDiv = [];
     this.formationOptions = [[3, 2, 2, 3], [3, 2, 3, 1], [3, 4, 3], [3, 5, 2], [4, 2, 3, 1], [4, 3, 1, 1], [4, 3, 2], [4, 4, 2], [4, 5, 1], [5, 4, 1]];
     this.slotKey = 0;
     this.playerListContainers = [];
     this.squadConfig = []
     this.slotIds = []; // gonna save slot Ids for empty them when need.
+
+    this.slotReferences = [];
+
     if (props.squad) {
       this.squadConfig = props.squad;
     }
@@ -31,26 +34,34 @@ class AppHeader extends React.Component {
       playerListContainers: [],
       playersSearch: []
     }
+
+    this.placeSlots();
+
+    this.state.soccerFormationDiv = this.soccerFormationDiv;
+
   }
 
   componentDidMount() {
-    this.placeSlots();
+    this.forceUpdate();
+    this.setState(() => ({
+      soccerFormationDiv: this.soccerFormationDiv
+    }))
     this.populateSquadSlots();
-
   }
 
   placeSlots() {
+    
     this.emptySlots();
     this.soccerFormationDiv = [];
     this.slotKey = 0;
-    this.squadConfig = [];
+
     let soccerFormationLines = [];
     //first we read the array containing the formation numbers
     this.formation.map(function (num) {
       let line = [];
       for (let i = 1; i <= num; i++) {
         //and we add as many players we will have horizontally in each line.
-        line.push(<div key={"player" + this.slotKey} id={"player" + this.slotKey} onDrop={event => this.drop(event)} onDragOver={event => this.allowDrop(event)} className="playerName"><span>+</span></div>);
+        line.push(<div key={"player" + this.slotKey} ref={this.slotReferences["player" + this.slotKey]} id={"player" + this.slotKey} onDrop={event => this.drop(event)} onDragOver={event => this.allowDrop(event)} className="playerName"><span>+</span></div>);
         this.slotIds.push("player" + this.slotKey);
         this.slotKey++;
       }
@@ -64,17 +75,29 @@ class AppHeader extends React.Component {
     }
 
     //finally, we add the goal Keeper!
-    this.soccerFormationDiv.push(<div key={soccerFormationLines.length} className="formationLine"><div id={"player" + this.slotKey} onDrop={event => this.drop(event)} onDragOver={event => this.allowDrop(event)} className="playerName"><span draggable="false">+</span></div></div>)
+    this.soccerFormationDiv.push(<div key={soccerFormationLines.length} id={soccerFormationLines.length} className="formationLine"><div id={"player" + this.slotKey} ref={this.slotReferences["player" + this.slotKey]} onDrop={event => this.drop(event)} onDragOver={event => this.allowDrop(event)} className="playerName"><span draggable="false">+</span></div></div>)
     this.slotIds.push("player" + this.slotKey);
-
-    this.setState(() => ({
-      soccerFormationDiv: this.soccerFormationDiv
-    }))
   }
 
-  emptySlots(){
-    this.slotIds.map( function (id) {
-      document.getElementById(id).innerHTML = "<span>+</span>";
+
+  populateSquadSlots() {
+    let slot;
+    let player;
+    for (let i = 0; i < this.squadConfig.length; i++) {
+      player = this.squadConfig[i]
+      slot = document.getElementById(player.slot);
+      if (slot) {
+        slot.innerHTML = player.initials;
+      }
+    }
+  }
+
+
+  emptySlots() {
+    this.slotIds.map(function (id) {
+      if (document.getElementById(id)) {
+        document.getElementById(id).innerHTML = "<span>+</span>";
+      }
     })
   }
 
@@ -104,6 +127,10 @@ class AppHeader extends React.Component {
     return this.squadConfig;
   }
 
+  getFormation() {
+    return this.formation;
+  }
+
   populateSearchList() {
     this.playerListContainers = [];
     let players = this.playersSearch;
@@ -125,16 +152,6 @@ class AppHeader extends React.Component {
     this.setState({
       playerListContainers: this.playerListContainers,
     });
-  }
-
-  populateSquadSlots() {
-    let slot;
-    let player;
-    for (let i = 0; i < this.squadConfig.length; i++) {
-      player = this.squadConfig[i]
-      slot = document.getElementById(player.slot)
-      slot.innerHTML = player.initials;
-    }
   }
 
   allowDrop(ev) {
@@ -183,13 +200,15 @@ class AppHeader extends React.Component {
   }
 
   render() {
+
     const listOptions = [];
+    this.defaultValue = "";
+
     for (let i = 0; i < this.formationOptions.length; i++) {
       if (this.formationOptions[i].toString() == this.formation.toString()) {
-        listOptions.push(<option value={this.formationOptions[i]} selected > {this.formationOptions[i].toString().replaceAll(",", "-")} </option>);
-      } else {
-        listOptions.push(<option value={this.formationOptions[i]} > {this.formationOptions[i]} </option>);
+        this.defaultValue = this.formationOptions[i];
       }
+      listOptions.push(<option key={this.formationOptions[i]} value={this.formationOptions[i]} > {this.formationOptions[i].toString().replaceAll(",", "-")} </option>);
     }
     return (
       <>
@@ -197,7 +216,16 @@ class AppHeader extends React.Component {
         <div className="dragDropArea">
           <div>
             <span>Formation</span>
-            <select onChange={event => { this.formation = JSON.parse("[" + event.target.value + "]"); this.quadConfig = []; this.placeSlots() }} id="formations" name="formations">
+            <select
+              defaultValue={this.defaultValue}
+              onChange={
+                event => {
+                  this.formation = JSON.parse("[" + event.target.value + "]");
+                  this.squadConfig = []; this.placeSlots();
+                  this.setState(() => ({ soccerFormationDiv: this.soccerFormationDiv }))
+                }}
+              id="formations"
+              name="formations">
               {listOptions}
             </select>
             <div className="soccerField">
