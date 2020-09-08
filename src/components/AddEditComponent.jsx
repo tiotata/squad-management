@@ -41,7 +41,7 @@ class AddEditComponent extends React.Component {
         teamInfo.id = savedTeams[savedTeamId].id;
         savedTeams[savedTeamId] = teamInfo;
       } else {
-        let lastTeamIndex = localStorage.getItem("lastTeamIndex");
+        let lastTeamIndex = parseInt(localStorage.getItem("lastTeamIndex"));
         teamInfo.id = lastTeamIndex + 1;
         savedTeams.push(teamInfo);
         localStorage.setItem("lastTeamIndex", teamInfo.id);
@@ -53,7 +53,7 @@ class AddEditComponent extends React.Component {
     }
    
   }
-
+  
   render() {
     if (this.state.toHome === true) {
       return <Redirect to='/' />

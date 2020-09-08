@@ -4,15 +4,18 @@ import ListButtons from './ListButtons.jsx'
 
 class MyTeams extends React.Component {
 
+  state = {
+    teams : JSON.parse(localStorage.getItem("savedTeams"))
+  }
   
   constructor(props) {
     super(props);
     this.state = {
      
     }
-
     
     this.teams = JSON.parse(localStorage.getItem("savedTeams"));
+    this.state.teams = this.teams;
     this.targetPage = "/AddEditTeams";
     this.filterProperty = "name";
     this.filterByDescription =  this.filterByDescription.bind(this);
@@ -47,8 +50,14 @@ class MyTeams extends React.Component {
     return 0;
   }
 
+  reloadStorageAfterRemove(){
+    let teams = JSON.parse(localStorage.getItem("savedTeams"))
+    this.setState({
+      teams: teams,
+    });
+  }
   render(){
-    const listItems = this.teams.map((d) => <div className="listLine" key={d.name}><div>{d.name}</div><div>{d.description}</div><ListButtons teamId={d.id}></ListButtons></div>);
+    const listItems = this.state.teams.map((d) => <div className="listLine" key={d.name}><div>{d.name}</div><div>{d.description}</div><ListButtons myCallBack={this.reloadStorageAfterRemove.bind(this)} teamId={d.id}></ListButtons></div>);
     return (
       <div>
         <ComponentTitle title={"My Teams"} targetPage={this.targetPage}></ComponentTitle>
